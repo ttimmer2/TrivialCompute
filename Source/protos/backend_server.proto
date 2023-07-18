@@ -3,7 +3,7 @@ syntax = "proto3";
 // Backend will be the server since theoretically you might want to connect other modules to it.
 // Server will subscribe as a client and submit requests to get information or store information.
 
-package backendserver
+package backendserver;
 
 // Interface exported by the server.
 service BackendServer {
@@ -35,7 +35,7 @@ service BackendServer {
     string Category = 1 ;
 
     // question type
-    enum QuestionType = 2;
+    int32 QuestionType = 2;
 
     // question text TODO add video/audio/image
     string QuestionText = 3;
@@ -47,5 +47,9 @@ service BackendServer {
   }
 
   message SuccessMessage {
-    boolean Success ;
+    bool Success = 1;
+  }
+
+  message Category {
+    string Category = 1 ;
   }
