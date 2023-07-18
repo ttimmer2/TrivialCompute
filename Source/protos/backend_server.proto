@@ -2,3 +2,50 @@ syntax = "proto3";
 
 // Backend will be the server since theoretically you might want to connect other modules to it.
 // Server will subscribe as a client and submit requests to get information or store information.
+
+package backendserver
+
+// Interface exported by the server.
+service BackendServer {
+
+    // send the question
+    rpc GetQuestion(QuestionRequest) returns (Question) {}
+
+    //rpc GetSocket(SocketMessage) returns (Socket) {}
+
+    rpc CreateCategory(Category) returns (SuccessMessage) {}
+
+    rpc EnterQuestion(Question) returns (SuccessMessage) {}
+  }
+
+  enum QuestionType {
+    // A = text
+    // B = image
+    // C = audio
+    // D = video
+
+    A = 0;
+    B = 1;
+    C = 2;
+    D = 3;
+  }
+
+  message Question {
+    // category type
+    string Category = 1 ;
+
+    // question type
+    enum QuestionType = 2;
+
+    // question text TODO add video/audio/image
+    string QuestionText = 3;
+  }
+
+
+  message QuestionRequest {
+    string Category = 1 ;
+  }
+
+  message SuccessMessage {
+    boolean Success ;
+  }
