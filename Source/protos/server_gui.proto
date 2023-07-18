@@ -1,0 +1,4 @@
+syntax = "proto3";
+
+// server will be the server, and gui will be the client.
+

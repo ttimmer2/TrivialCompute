@@ -1,0 +1,4 @@
+syntax = "proto3";
+
+// Backend will be the server since theoretically you might want to connect other modules to it.
+// Server will subscribe as a client and submit requests to get information or store information.
