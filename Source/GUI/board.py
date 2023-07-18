@@ -1,3 +1,5 @@
+import pygame
+
 POSITIONS = [
     (0,0), (1,0), (2,0), (3,0), (4,0), (5,0), (6,0), (7,0), (8,0),
     (0,1),                      (4,1),                      (8,1),
@@ -75,6 +77,58 @@ class Token_image():
         pygame.draw.circle(window, self.color, (int(x),int(y)), int(SQUARE_DIM/4))
 
 
+class Player():
+    def __init__(self, name, number):
+        self.name = name
+        self.number = number
+
+        self.categories = [False,False,False,False]
+
+        self.set_location()
+
+    def set_category_value(self, category):
+        if category > 3 or category < 0:
+            raise Exception("Category must be an int between 0 & 3")
+        self.categories[category] = True
+
+    def set_location(self):
+        location = None
+        match self.number:
+            case 0:
+                location = (2,2)
+            case 1:
+                location = (2,6)
+            case 2:
+                location = (6,2)
+            case 3:
+                location = (6,6)
+        self.location = location
+
+    def get_name(self):
+        return self.name
+
+
+    def draw_player_representation(self, window, font):
+        tl_x = self.location[0] * SQUARE_DIM + X_MARGIN
+        tl_y = self.location[1] * SQUARE_DIM + Y_MARGIN
+        number_bitmap = font.render( self.name, False, BLACK )
+        margin = 20
+        window.blit( number_bitmap, ( tl_x - margin, tl_y - margin ) )
+
+        # draw completed squares
+        cats = self.categories
+        if cats[0]:
+            rectangle = ( tl_x, tl_y, SQUARE_DIM/2, SQUARE_DIM/2)
+            pygame.draw.rect( window, RED, rectangle, border_radius=1 ) 
+        if cats[1]:
+            rectangle = ( tl_x + SQUARE_DIM/2, tl_y, SQUARE_DIM/2, SQUARE_DIM/2)
+            pygame.draw.rect( window, YELLOW, rectangle, border_radius=1 )
+        if cats[2]:
+            rectangle = ( tl_x, tl_y + SQUARE_DIM/2, SQUARE_DIM/2, SQUARE_DIM/2)
+            pygame.draw.rect( window, BLUE, rectangle, border_radius=1 )           
+        if cats[3]:
+            rectangle = ( tl_x + SQUARE_DIM/2, tl_y + SQUARE_DIM/2, SQUARE_DIM/2, SQUARE_DIM/2)
+            pygame.draw.rect( window, GREEN, rectangle, border_radius=1 )
 
 
 def get_rectangle_color(pos):
@@ -101,8 +155,11 @@ def draw_tokens(tokens, window):
     for token in tokens:
         token.draw_token(window)
 
+def draw_players(players, window, font):
+    for player in players:
+        player.draw_player_representation(window, font)
 
-def draw_board(window, number_font, tokens):
+def draw_board(window, number_font, tokens, players):
     for i, pos in enumerate(POSITIONS):
         tl_x = pos[0]*SQUARE_DIM + X_MARGIN
         tl_y = pos[1]*SQUARE_DIM + Y_MARGIN
@@ -115,18 +172,29 @@ def draw_board(window, number_font, tokens):
             margin = 10
             window.blit( number_bitmap, ( tl_x + margin, tl_y + margin ) )
         draw_tokens(tokens, window)
+        draw_players(players,window, font)
 
 
 
 if __name__ == "__main__":
-    import pygame
 
     P0 = Token_image(POSITIONS[4], PINK, 0)
+    Player_0 = Player("Douglas",0)
     P1 = Token_image(POSITIONS[HOME[0]],BROWN, 1)
+    Player_1 = Player("Violet",1)
     P2 = Token_image(POSITIONS[HOME[0]], PURPLE, 2)
+    Player_2 = Player("Milhouse",2)    
     P3 = Token_image(POSITIONS[HOME[0]], ORANGE, 3)
+    Player_3 = Player("Bartholomew",3)
+
+    for i in range(0,4):
+        Player_3.set_category_value(i)
+    for i in range(0,2):
+        Player_1.set_category_value(i)
+
 
     tokens = [P0,P1,P2,P3]
+    players = [Player_0,Player_1,Player_2,Player_3]
 
     pygame.init()
     pygame.font.init()
@@ -134,10 +202,7 @@ if __name__ == "__main__":
     drawing_window = pygame.display.set_mode()
     drawing_window.fill(WHITE)
 
-    # I don't have 'cambriamath'
     font = pygame.font.SysFont( None, 18, bold =pygame.font.Font.bold)
-    dice_roller_font = pygame.font.SysFont('arial', 40)
-
 
     clock = pygame.time.Clock()   # used to govern the max MAX_FPS
     running = True
@@ -146,7 +211,7 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 running = False
 
-        draw_board( drawing_window, font, tokens )
+        draw_board( drawing_window, font, tokens, players )
 
         pygame.display.update()
 
