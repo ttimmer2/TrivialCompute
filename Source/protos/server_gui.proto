@@ -1,4 +1,79 @@
 syntax = "proto3";
 
 // server will be the server, and gui will be the client.
+package backendserver
 
+// Interface exported by the server.
+service ServerGUI {
+
+    // player rolls dice - checks where valid places to move are
+    rpc RollDiceAndGetValidLandingSpots(RollDiceMessage) returns (stream ValidSpotMessage) {}
+
+    // send the question
+    rpc HandleNewSpot(NewSpotMessage) returns (NewSpotActionOrMessage) {}  // should be different - i.e. just sends which player and their new location
+
+    // if NewSpotActionOrMessage is roll again, redo RollDiceAndGetValidLandingSpots - else, request question for spot. If final question condition - send the final question request with the added category parameter from user
+    rpc GetQuestion(PlayerWhoNeedsQuestion) returns (Question) {}
+
+    rpc QuestionSuccess(ResponseSuccess) returns (UpdatePlayerScoreMessage) {}
+    //rpc GetSocket(SocketMessage) returns (Socket) {}
+
+    // for the add question ui - creates a new message, returns success
+    rpc CreateCategory(Category) returns (SuccessMessage) {}  // create category in gui
+
+    // for the add question ui - creates a new category, returns success or not
+    rpc CreateNewQuestion(Question) returns (SuccessMessage) {}  // submit question
+
+    //rpc CheckForUpdates()
+
+    //rpc GetPlayerTokenLocation()  todo - 
+
+  }
+
+enum ResponseType {
+    // a = roll again
+    // b = answer question
+    // c = final question
+
+    A = 0;
+    B = 1;
+    C = 2;
+}
+
+
+message RollDiceMessage {
+    // player number
+    int Player = 1 ;
+    int Location = 2 ;
+}
+
+// will stream these back to form a list of valid spots the user can move to
+message ValidSpotMessage {
+    int ValidSpot = 1;
+}
+
+// will tell the server the players new spot
+message NewSpotMessage {
+    int Player = 1 ;
+    int Spot = 2 ;
+}
+
+message NewSpotActionOrMessage {
+    int Player = 1 ;
+    enum RT = 2 ;
+}
+
+message Category {
+    string CategoryName = 1;
+}
+
+
+message Question {  // todo - add handling for video
+    string CategoryType = 1;
+    string Question = 1;
+}
+
+message SuccessMessage {
+    bool Success = 1 ;
+    string messageText = 2;
+}
