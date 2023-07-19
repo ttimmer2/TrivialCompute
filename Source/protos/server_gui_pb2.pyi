@@ -31,8 +31,8 @@ class RollDiceMessage(_message.Message):
 class ValidSpotMessage(_message.Message):
     __slots__ = ["ValidSpot"]
     VALIDSPOT_FIELD_NUMBER: _ClassVar[int]
-    ValidSpot: int
-    def __init__(self, ValidSpot: _Optional[int] = ...) -> None: ...
+    ValidSpot: str
+    def __init__(self, ValidSpot: _Optional[str] = ...) -> None: ...
 
 class NewSpotMessage(_message.Message):
     __slots__ = ["Player", "Spot"]
@@ -50,13 +50,13 @@ class NewSpotActionOrMessage(_message.Message):
     RT: int
     def __init__(self, Player: _Optional[int] = ..., RT: _Optional[int] = ...) -> None: ...
 
-class Category(_message.Message):
+class CategoryFromGUI(_message.Message):
     __slots__ = ["CategoryName"]
     CATEGORYNAME_FIELD_NUMBER: _ClassVar[int]
     CategoryName: str
     def __init__(self, CategoryName: _Optional[str] = ...) -> None: ...
 
-class Question(_message.Message):
+class QuestionGS(_message.Message):
     __slots__ = ["CategoryType", "Question"]
     CATEGORYTYPE_FIELD_NUMBER: _ClassVar[int]
     QUESTION_FIELD_NUMBER: _ClassVar[int]
@@ -64,7 +64,7 @@ class Question(_message.Message):
     Question: str
     def __init__(self, CategoryType: _Optional[str] = ..., Question: _Optional[str] = ...) -> None: ...
 
-class SuccessMessage(_message.Message):
+class SuccessMessageGS(_message.Message):
     __slots__ = ["Success", "messageText"]
     SUCCESS_FIELD_NUMBER: _ClassVar[int]
     MESSAGETEXT_FIELD_NUMBER: _ClassVar[int]

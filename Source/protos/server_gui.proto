@@ -7,22 +7,22 @@ package backendserver;
 service ServerGUI {
 
     // player rolls dice - checks where valid places to move are
-    rpc RollDiceAndGetValidLandingSpots(RollDiceMessage) returns (stream ValidSpotMessage) {}
+    rpc RollDiceAndGetValidLandingSpots(RollDiceMessage) returns (ValidSpotMessage) {}
 
     // send the question
     rpc HandleNewSpot(NewSpotMessage) returns (NewSpotActionOrMessage) {}  // should be different - i.e. just sends which player and their new location
 
     // if NewSpotActionOrMessage is roll again, redo RollDiceAndGetValidLandingSpots - else, request question for spot. If final question condition - send the final question request with the added category parameter from user
-    rpc GetQuestion(RequestQuestion) returns (Question) {}
+    rpc GetQuestion(RequestQuestion) returns (QuestionGS) {}
 
     rpc QuestionSuccess(ResponseSuccess) returns (UpdatePlayerScoreMessage) {}
     //rpc GetSocket(SocketMessage) returns (Socket) {}
 
     // for the add question ui - creates a new message, returns success
-    rpc CreateCategory(Category) returns (SuccessMessage) {}  // create category in gui
+    rpc CreateCategory(CategoryFromGUI) returns (SuccessMessageGS) {}  // create category in gui
 
     // for the add question ui - creates a new category, returns success or not
-    rpc CreateNewQuestion(Question) returns (SuccessMessage) {}  // submit question
+    rpc CreateNewQuestion(QuestionGS) returns (SuccessMessageGS) {}  // submit question
 
     //rpc CheckForUpdates()
 
@@ -52,7 +52,7 @@ message RollDiceMessage {
 
 // will stream these back to form a list of valid spots the user can move to
 message ValidSpotMessage {
-    int32 ValidSpot = 1;
+    string ValidSpot = 1;
 }
 
 // will tell the server the players new spot
@@ -63,20 +63,20 @@ message NewSpotMessage {
 
 message NewSpotActionOrMessage {
     int32 Player = 1 ;
-    int32 RT = 2 ;
+    int32 RT = 2 ;    // action or text
 }
 
-message Category {
+message CategoryFromGUI {
     string CategoryName = 1;
 }
 
 
-message Question {  // todo - add handling for video
+message QuestionGS {  // todo - add handling for video
     string CategoryType = 1;
     string Question = 2;
 }
 
-message SuccessMessage {
+message SuccessMessageGS {
     bool Success = 1 ;
     string messageText = 2;
 }

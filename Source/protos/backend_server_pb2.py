@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x62\x61\x63kend_server.proto\x12\rbackendserver\"H\n\x08Question\x12\x10\n\x08\x43\x61tegory\x18\x01 \x01(\t\x12\x14\n\x0cQuestionType\x18\x02 \x01(\x05\x12\x14\n\x0cQuestionText\x18\x03 \x01(\t\"#\n\x0fQuestionRequest\x12\x10\n\x08\x43\x61tegory\x18\x01 \x01(\t\"!\n\x0eSuccessMessage\x12\x0f\n\x07Success\x18\x01 \x01(\x08\"\x1c\n\x08\x43\x61tegory\x12\x10\n\x08\x43\x61tegory\x18\x01 \x01(\t**\n\x0cQuestionType\x12\x05\n\x01\x41\x10\x00\x12\x05\n\x01\x42\x10\x01\x12\x05\n\x01\x43\x10\x02\x12\x05\n\x01\x44\x10\x03\x32\xf0\x01\n\rBackendServer\x12H\n\x0bGetQuestion\x12\x1e.backendserver.QuestionRequest\x1a\x17.backendserver.Question\"\x00\x12J\n\x0e\x43reateCategory\x12\x17.backendserver.Category\x1a\x1d.backendserver.SuccessMessage\"\x00\x12I\n\rEnterQuestion\x12\x17.backendserver.Question\x1a\x1d.backendserver.SuccessMessage\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x62\x61\x63kend_server.proto\x12\rbackendserver\"H\n\x08Question\x12\x10\n\x08\x43\x61tegory\x18\x01 \x01(\t\x12\x14\n\x0cQuestionType\x18\x02 \x01(\x05\x12\x14\n\x0cQuestionText\x18\x03 \x01(\t\"<\n\x12QuestionSubmission\x12\x10\n\x08\x43\x61tegory\x18\x01 \x01(\t\x12\x14\n\x0cQuestionText\x18\x02 \x01(\t\"#\n\x0fQuestionRequest\x12\x10\n\x08\x43\x61tegory\x18\x01 \x01(\t\"6\n\x0eSuccessMessage\x12\x0f\n\x07Success\x18\x01 \x01(\x08\x12\x13\n\x0bMessageText\x18\x02 \x01(\t\"\x1c\n\x08\x43\x61tegory\x12\x10\n\x08\x43\x61tegory\x18\x01 \x01(\t**\n\x0cQuestionType\x12\x05\n\x01\x41\x10\x00\x12\x05\n\x01\x42\x10\x01\x12\x05\n\x01\x43\x10\x02\x12\x05\n\x01\x44\x10\x03\x32\xfa\x01\n\rBackendServer\x12H\n\x0bGetQuestion\x12\x1e.backendserver.QuestionRequest\x1a\x17.backendserver.Question\"\x00\x12J\n\x0e\x43reateCategory\x12\x17.backendserver.Category\x1a\x1d.backendserver.SuccessMessage\"\x00\x12S\n\rEnterQuestion\x12!.backendserver.QuestionSubmission\x1a\x1d.backendserver.SuccessMessage\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -21,16 +21,18 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'backend_server_pb2', _globa
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _globals['_QUESTIONTYPE']._serialized_start=215
-  _globals['_QUESTIONTYPE']._serialized_end=257
+  _globals['_QUESTIONTYPE']._serialized_start=298
+  _globals['_QUESTIONTYPE']._serialized_end=340
   _globals['_QUESTION']._serialized_start=39
   _globals['_QUESTION']._serialized_end=111
-  _globals['_QUESTIONREQUEST']._serialized_start=113
-  _globals['_QUESTIONREQUEST']._serialized_end=148
-  _globals['_SUCCESSMESSAGE']._serialized_start=150
-  _globals['_SUCCESSMESSAGE']._serialized_end=183
-  _globals['_CATEGORY']._serialized_start=185
-  _globals['_CATEGORY']._serialized_end=213
-  _globals['_BACKENDSERVER']._serialized_start=260
-  _globals['_BACKENDSERVER']._serialized_end=500
+  _globals['_QUESTIONSUBMISSION']._serialized_start=113
+  _globals['_QUESTIONSUBMISSION']._serialized_end=173
+  _globals['_QUESTIONREQUEST']._serialized_start=175
+  _globals['_QUESTIONREQUEST']._serialized_end=210
+  _globals['_SUCCESSMESSAGE']._serialized_start=212
+  _globals['_SUCCESSMESSAGE']._serialized_end=266
+  _globals['_CATEGORY']._serialized_start=268
+  _globals['_CATEGORY']._serialized_end=296
+  _globals['_BACKENDSERVER']._serialized_start=343
+  _globals['_BACKENDSERVER']._serialized_end=593
 # @@protoc_insertion_point(module_scope)

@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10server_gui.proto\x12\rbackendserver\"!\n\x0fRequestQuestion\x12\x0e\n\x06Player\x18\x01 \x01(\x05\"3\n\x0fRollDiceMessage\x12\x0e\n\x06Player\x18\x01 \x01(\x05\x12\x10\n\x08Location\x18\x02 \x01(\x05\"%\n\x10ValidSpotMessage\x12\x11\n\tValidSpot\x18\x01 \x01(\x05\".\n\x0eNewSpotMessage\x12\x0e\n\x06Player\x18\x01 \x01(\x05\x12\x0c\n\x04Spot\x18\x02 \x01(\x05\"4\n\x16NewSpotActionOrMessage\x12\x0e\n\x06Player\x18\x01 \x01(\x05\x12\n\n\x02RT\x18\x02 \x01(\x05\" \n\x08\x43\x61tegory\x12\x14\n\x0c\x43\x61tegoryName\x18\x01 \x01(\t\"2\n\x08Question\x12\x14\n\x0c\x43\x61tegoryType\x18\x01 \x01(\t\x12\x10\n\x08Question\x18\x02 \x01(\t\"6\n\x0eSuccessMessage\x12\x0f\n\x07Success\x18\x01 \x01(\x08\x12\x13\n\x0bmessageText\x18\x02 \x01(\t\"2\n\x0fResponseSuccess\x12\x0e\n\x06player\x18\x01 \x01(\x05\x12\x0f\n\x07success\x18\x02 \x01(\x08\"N\n\x18UpdatePlayerScoreMessage\x12\x0e\n\x06player\x18\x01 \x01(\x05\x12\x10\n\x08\x43\x61tegory\x18\x02 \x01(\x05\x12\x10\n\x08\x61nswered\x18\x03 \x01(\x08*#\n\x0cResponseType\x12\x05\n\x01\x41\x10\x00\x12\x05\n\x01\x42\x10\x01\x12\x05\n\x01\x43\x10\x02\x32\x8f\x04\n\tServerGUI\x12\x66\n\x1fRollDiceAndGetValidLandingSpots\x12\x1e.backendserver.RollDiceMessage\x1a\x1f.backendserver.ValidSpotMessage\"\x00\x30\x01\x12W\n\rHandleNewSpot\x12\x1d.backendserver.NewSpotMessage\x1a%.backendserver.NewSpotActionOrMessage\"\x00\x12H\n\x0bGetQuestion\x12\x1e.backendserver.RequestQuestion\x1a\x17.backendserver.Question\"\x00\x12\\\n\x0fQuestionSuccess\x12\x1e.backendserver.ResponseSuccess\x1a\'.backendserver.UpdatePlayerScoreMessage\"\x00\x12J\n\x0e\x43reateCategory\x12\x17.backendserver.Category\x1a\x1d.backendserver.SuccessMessage\"\x00\x12M\n\x11\x43reateNewQuestion\x12\x17.backendserver.Question\x1a\x1d.backendserver.SuccessMessage\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10server_gui.proto\x12\rbackendserver\"!\n\x0fRequestQuestion\x12\x0e\n\x06Player\x18\x01 \x01(\x05\"3\n\x0fRollDiceMessage\x12\x0e\n\x06Player\x18\x01 \x01(\x05\x12\x10\n\x08Location\x18\x02 \x01(\x05\"%\n\x10ValidSpotMessage\x12\x11\n\tValidSpot\x18\x01 \x01(\t\".\n\x0eNewSpotMessage\x12\x0e\n\x06Player\x18\x01 \x01(\x05\x12\x0c\n\x04Spot\x18\x02 \x01(\x05\"4\n\x16NewSpotActionOrMessage\x12\x0e\n\x06Player\x18\x01 \x01(\x05\x12\n\n\x02RT\x18\x02 \x01(\x05\"\'\n\x0f\x43\x61tegoryFromGUI\x12\x14\n\x0c\x43\x61tegoryName\x18\x01 \x01(\t\"4\n\nQuestionGS\x12\x14\n\x0c\x43\x61tegoryType\x18\x01 \x01(\t\x12\x10\n\x08Question\x18\x02 \x01(\t\"8\n\x10SuccessMessageGS\x12\x0f\n\x07Success\x18\x01 \x01(\x08\x12\x13\n\x0bmessageText\x18\x02 \x01(\t\"2\n\x0fResponseSuccess\x12\x0e\n\x06player\x18\x01 \x01(\x05\x12\x0f\n\x07success\x18\x02 \x01(\x08\"N\n\x18UpdatePlayerScoreMessage\x12\x0e\n\x06player\x18\x01 \x01(\x05\x12\x10\n\x08\x43\x61tegory\x18\x02 \x01(\x05\x12\x10\n\x08\x61nswered\x18\x03 \x01(\x08*#\n\x0cResponseType\x12\x05\n\x01\x41\x10\x00\x12\x05\n\x01\x42\x10\x01\x12\x05\n\x01\x43\x10\x02\x32\x9c\x04\n\tServerGUI\x12\x64\n\x1fRollDiceAndGetValidLandingSpots\x12\x1e.backendserver.RollDiceMessage\x1a\x1f.backendserver.ValidSpotMessage\"\x00\x12W\n\rHandleNewSpot\x12\x1d.backendserver.NewSpotMessage\x1a%.backendserver.NewSpotActionOrMessage\"\x00\x12J\n\x0bGetQuestion\x12\x1e.backendserver.RequestQuestion\x1a\x19.backendserver.QuestionGS\"\x00\x12\\\n\x0fQuestionSuccess\x12\x1e.backendserver.ResponseSuccess\x1a\'.backendserver.UpdatePlayerScoreMessage\"\x00\x12S\n\x0e\x43reateCategory\x12\x1e.backendserver.CategoryFromGUI\x1a\x1f.backendserver.SuccessMessageGS\"\x00\x12Q\n\x11\x43reateNewQuestion\x12\x19.backendserver.QuestionGS\x1a\x1f.backendserver.SuccessMessageGS\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -21,8 +21,8 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'server_gui_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _globals['_RESPONSETYPE']._serialized_start=538
-  _globals['_RESPONSETYPE']._serialized_end=573
+  _globals['_RESPONSETYPE']._serialized_start=549
+  _globals['_RESPONSETYPE']._serialized_end=584
   _globals['_REQUESTQUESTION']._serialized_start=35
   _globals['_REQUESTQUESTION']._serialized_end=68
   _globals['_ROLLDICEMESSAGE']._serialized_start=70
@@ -33,16 +33,16 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_NEWSPOTMESSAGE']._serialized_end=208
   _globals['_NEWSPOTACTIONORMESSAGE']._serialized_start=210
   _globals['_NEWSPOTACTIONORMESSAGE']._serialized_end=262
-  _globals['_CATEGORY']._serialized_start=264
-  _globals['_CATEGORY']._serialized_end=296
-  _globals['_QUESTION']._serialized_start=298
-  _globals['_QUESTION']._serialized_end=348
-  _globals['_SUCCESSMESSAGE']._serialized_start=350
-  _globals['_SUCCESSMESSAGE']._serialized_end=404
-  _globals['_RESPONSESUCCESS']._serialized_start=406
-  _globals['_RESPONSESUCCESS']._serialized_end=456
-  _globals['_UPDATEPLAYERSCOREMESSAGE']._serialized_start=458
-  _globals['_UPDATEPLAYERSCOREMESSAGE']._serialized_end=536
-  _globals['_SERVERGUI']._serialized_start=576
-  _globals['_SERVERGUI']._serialized_end=1103
+  _globals['_CATEGORYFROMGUI']._serialized_start=264
+  _globals['_CATEGORYFROMGUI']._serialized_end=303
+  _globals['_QUESTIONGS']._serialized_start=305
+  _globals['_QUESTIONGS']._serialized_end=357
+  _globals['_SUCCESSMESSAGEGS']._serialized_start=359
+  _globals['_SUCCESSMESSAGEGS']._serialized_end=415
+  _globals['_RESPONSESUCCESS']._serialized_start=417
+  _globals['_RESPONSESUCCESS']._serialized_end=467
+  _globals['_UPDATEPLAYERSCOREMESSAGE']._serialized_start=469
+  _globals['_UPDATEPLAYERSCOREMESSAGE']._serialized_end=547
+  _globals['_SERVERGUI']._serialized_start=587
+  _globals['_SERVERGUI']._serialized_end=1127
 # @@protoc_insertion_point(module_scope)
