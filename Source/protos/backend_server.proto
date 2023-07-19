@@ -15,7 +15,7 @@ service BackendServer {
 
     rpc CreateCategory(Category) returns (SuccessMessage) {}
 
-    rpc EnterQuestion(Question) returns (SuccessMessage) {}
+    rpc EnterQuestion(QuestionSubmission) returns (SuccessMessage) {}
   }
 
   enum QuestionType {
@@ -41,6 +41,13 @@ service BackendServer {
     string QuestionText = 3;
   }
 
+  message QuestionSubmission {
+    // category type
+    string Category = 1 ;
+
+    // question text TODO add video/audio/image
+    string QuestionText = 2;
+  }
 
   message QuestionRequest {
     string Category = 1 ;
@@ -48,6 +55,7 @@ service BackendServer {
 
   message SuccessMessage {
     bool Success = 1;
+    string MessageText = 2 ;
   }
 
   message Category {

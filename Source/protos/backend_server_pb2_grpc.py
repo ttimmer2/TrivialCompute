@@ -27,7 +27,7 @@ class BackendServerStub(object):
                 )
         self.EnterQuestion = channel.unary_unary(
                 '/backendserver.BackendServer/EnterQuestion',
-                request_serializer=backend__server__pb2.Question.SerializeToString,
+                request_serializer=backend__server__pb2.QuestionSubmission.SerializeToString,
                 response_deserializer=backend__server__pb2.SuccessMessage.FromString,
                 )
 
@@ -72,7 +72,7 @@ def add_BackendServerServicer_to_server(servicer, server):
             ),
             'EnterQuestion': grpc.unary_unary_rpc_method_handler(
                     servicer.EnterQuestion,
-                    request_deserializer=backend__server__pb2.Question.FromString,
+                    request_deserializer=backend__server__pb2.QuestionSubmission.FromString,
                     response_serializer=backend__server__pb2.SuccessMessage.SerializeToString,
             ),
     }
@@ -132,7 +132,7 @@ class BackendServer(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/backendserver.BackendServer/EnterQuestion',
-            backend__server__pb2.Question.SerializeToString,
+            backend__server__pb2.QuestionSubmission.SerializeToString,
             backend__server__pb2.SuccessMessage.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

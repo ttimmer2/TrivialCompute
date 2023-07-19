@@ -15,7 +15,7 @@ class ServerGUIStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.RollDiceAndGetValidLandingSpots = channel.unary_stream(
+        self.RollDiceAndGetValidLandingSpots = channel.unary_unary(
                 '/backendserver.ServerGUI/RollDiceAndGetValidLandingSpots',
                 request_serializer=server__gui__pb2.RollDiceMessage.SerializeToString,
                 response_deserializer=server__gui__pb2.ValidSpotMessage.FromString,
@@ -28,7 +28,7 @@ class ServerGUIStub(object):
         self.GetQuestion = channel.unary_unary(
                 '/backendserver.ServerGUI/GetQuestion',
                 request_serializer=server__gui__pb2.RequestQuestion.SerializeToString,
-                response_deserializer=server__gui__pb2.Question.FromString,
+                response_deserializer=server__gui__pb2.QuestionGS.FromString,
                 )
         self.QuestionSuccess = channel.unary_unary(
                 '/backendserver.ServerGUI/QuestionSuccess',
@@ -37,13 +37,13 @@ class ServerGUIStub(object):
                 )
         self.CreateCategory = channel.unary_unary(
                 '/backendserver.ServerGUI/CreateCategory',
-                request_serializer=server__gui__pb2.Category.SerializeToString,
-                response_deserializer=server__gui__pb2.SuccessMessage.FromString,
+                request_serializer=server__gui__pb2.CategoryFromGUI.SerializeToString,
+                response_deserializer=server__gui__pb2.SuccessMessageGS.FromString,
                 )
         self.CreateNewQuestion = channel.unary_unary(
                 '/backendserver.ServerGUI/CreateNewQuestion',
-                request_serializer=server__gui__pb2.Question.SerializeToString,
-                response_deserializer=server__gui__pb2.SuccessMessage.FromString,
+                request_serializer=server__gui__pb2.QuestionGS.SerializeToString,
+                response_deserializer=server__gui__pb2.SuccessMessageGS.FromString,
                 )
 
 
@@ -95,7 +95,7 @@ class ServerGUIServicer(object):
 
 def add_ServerGUIServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'RollDiceAndGetValidLandingSpots': grpc.unary_stream_rpc_method_handler(
+            'RollDiceAndGetValidLandingSpots': grpc.unary_unary_rpc_method_handler(
                     servicer.RollDiceAndGetValidLandingSpots,
                     request_deserializer=server__gui__pb2.RollDiceMessage.FromString,
                     response_serializer=server__gui__pb2.ValidSpotMessage.SerializeToString,
@@ -108,7 +108,7 @@ def add_ServerGUIServicer_to_server(servicer, server):
             'GetQuestion': grpc.unary_unary_rpc_method_handler(
                     servicer.GetQuestion,
                     request_deserializer=server__gui__pb2.RequestQuestion.FromString,
-                    response_serializer=server__gui__pb2.Question.SerializeToString,
+                    response_serializer=server__gui__pb2.QuestionGS.SerializeToString,
             ),
             'QuestionSuccess': grpc.unary_unary_rpc_method_handler(
                     servicer.QuestionSuccess,
@@ -117,13 +117,13 @@ def add_ServerGUIServicer_to_server(servicer, server):
             ),
             'CreateCategory': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateCategory,
-                    request_deserializer=server__gui__pb2.Category.FromString,
-                    response_serializer=server__gui__pb2.SuccessMessage.SerializeToString,
+                    request_deserializer=server__gui__pb2.CategoryFromGUI.FromString,
+                    response_serializer=server__gui__pb2.SuccessMessageGS.SerializeToString,
             ),
             'CreateNewQuestion': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateNewQuestion,
-                    request_deserializer=server__gui__pb2.Question.FromString,
-                    response_serializer=server__gui__pb2.SuccessMessage.SerializeToString,
+                    request_deserializer=server__gui__pb2.QuestionGS.FromString,
+                    response_serializer=server__gui__pb2.SuccessMessageGS.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -147,7 +147,7 @@ class ServerGUI(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/backendserver.ServerGUI/RollDiceAndGetValidLandingSpots',
+        return grpc.experimental.unary_unary(request, target, '/backendserver.ServerGUI/RollDiceAndGetValidLandingSpots',
             server__gui__pb2.RollDiceMessage.SerializeToString,
             server__gui__pb2.ValidSpotMessage.FromString,
             options, channel_credentials,
@@ -183,7 +183,7 @@ class ServerGUI(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/backendserver.ServerGUI/GetQuestion',
             server__gui__pb2.RequestQuestion.SerializeToString,
-            server__gui__pb2.Question.FromString,
+            server__gui__pb2.QuestionGS.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -216,8 +216,8 @@ class ServerGUI(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/backendserver.ServerGUI/CreateCategory',
-            server__gui__pb2.Category.SerializeToString,
-            server__gui__pb2.SuccessMessage.FromString,
+            server__gui__pb2.CategoryFromGUI.SerializeToString,
+            server__gui__pb2.SuccessMessageGS.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -233,7 +233,7 @@ class ServerGUI(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/backendserver.ServerGUI/CreateNewQuestion',
-            server__gui__pb2.Question.SerializeToString,
-            server__gui__pb2.SuccessMessage.FromString,
+            server__gui__pb2.QuestionGS.SerializeToString,
+            server__gui__pb2.SuccessMessageGS.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
