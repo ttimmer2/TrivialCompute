@@ -75,6 +75,10 @@ map "NodeMap **StartSquare => ConnectedSquare**" as NodeMap {
 3 => 4
 }
 
+Class Game{
+  
+}
+
 Class Board{
   --attributes--
   NodeMap
@@ -116,6 +120,25 @@ Class "Window Tracker"{
   ..
   enum getWindow():
   \tRETURN self.currentWindow
+}
+
+Class "Backend Interface"{
+    --attributes--
+    db_port : INTEGER
+    --methods--
+    tuple getQuestion(String C):
+    \t// query db for a question and answer
+    \t// for category C
+    \tRETURN (Question, Answer, Category)
+    ..
+    makeQuestion(String Q, String A, String C):
+    \t// submit question and answer
+    \t// for category
+    \t// return success value
+}
+
+Class "GUI Interface"{
+
 }
 
 ' attribute connections

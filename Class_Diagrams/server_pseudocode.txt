@@ -1,0 +1,11 @@
+Behavior specification example - do for operations
+
+Given <some precondition>
+
+And <additional preconditions> Optional
+
+When <an action/trigger occurs>
+
+Then <some post condition>
+
+And <additional post conditions> Optional
