@@ -107,6 +107,17 @@ Class Question{
   \tRETURN
 }
 
+Class "Window Tracker"{
+  --attributes--
+  currentWindow : enum
+  --methods--
+  Void setWindow(enum W):
+  \tself.currentWindow = W
+  ..
+  enum getWindow():
+  \tRETURN self.currentWindow
+}
+
 ' attribute connections
 'Player::location <-- Player::getLocation
 'Player::location <-- Player::setLocation
