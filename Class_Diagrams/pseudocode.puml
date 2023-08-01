@@ -76,7 +76,27 @@ map "NodeMap **StartSquare => ConnectedSquare**" as NodeMap {
 }
 
 Class Game{
-  
+  --attributes--
+  Players : List[Player]
+  ..
+  CurrentPlayerTurn : INTEGER
+  ..
+  Board : Board
+  ..
+  Dice : Dice
+  --methods--
+  void PlayerRoll():
+  ..
+  void PlayerMove():
+  ..
+  void UpdatePlayerScore():
+  ..
+  Question getQuestion():
+  ..
+  Boolean checkWinCondition():
+  ..
+  list[location] getMoveOptions():
+  \tRETURN self.Players[CurrentPlayerTurn].getMoveOptions
 }
 
 Class Board{
@@ -137,18 +157,23 @@ Class "Backend Interface"{
     \t// return success value
 }
 
-Class "GUI Interface"{
-
-}
-
 ' attribute connections
 'Player::location <-- Player::getLocation
 'Player::location <-- Player::setLocation
 Player::getScore --> PlayerScore::getScore
 Player::setScore --> PlayerScore::setScore
 Player::getMoveOptions --> Board::getMoveOptions
+Game::Players --> Player
+Game::Board --> Board
+Game::Dice --> Dice
+Game::getMoveOptions --> Player::getMoveOptions
 
 /'
+
+Class "GUI Interface"{
+
+}
+
     When Given <some precondition>
 
 And <additional preconditions> Optional
