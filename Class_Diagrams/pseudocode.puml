@@ -92,8 +92,15 @@ Class Game{
   void UpdatePlayerScore():
   ..
   Question getQuestion():
+  \\tRETURN "Backend Interface"::getQuestion
   ..
   Boolean checkWinCondition():
+  // check if on center point
+  // check if all questions answered
+  // check if last question was correct
+  // if all those, return true,
+  // else, return false
+  \tRETURN gameComplete
   ..
   list[location] getMoveOptions():
   \tRETURN self.Players[CurrentPlayerTurn].getMoveOptions
