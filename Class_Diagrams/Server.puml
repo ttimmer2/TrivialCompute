@@ -10,10 +10,12 @@ Class Board
 Class "Window Tracker"
 note "Game classes are used for representation logic.\nThe display functions are all performed by the GUI." as N1
 Class Game
+Class PlayerScore
 Game o-- Player : Aggregation
 Board *-- "Board Square" : Contains
 Game *-- Board : Contains
 Game *-- Dice : Contains
+Player *-- PlayerScore : Contains
 Interface <|-- "GUI Interface" : Extension
 Interface <|-- "Backend Interface" : Extension
 @enduml
