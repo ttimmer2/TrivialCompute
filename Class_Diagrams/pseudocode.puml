@@ -85,11 +85,17 @@ Class Game{
   ..
   Dice : Dice
   --methods--
-  void PlayerRoll():
+  list PlayerRoll():
+    \t// Roll the dice
+    \troll = self.dice::Roll()
+    \t// Check valid moves
+    \tlocations = self.getMoveOptions()
+    \t// return to GUI
+    \tRETURN locations
   ..
-  void PlayerMove():
-  ..
-  void UpdatePlayerScore():
+  void playerMove(INTEGER loc):
+  \tself.Players[CurrentPlayerTurn].setLocation(loc)
+  \tRETURN
   ..
   Question getQuestion():
   \\tRETURN "Backend Interface"::getQuestion
@@ -103,7 +109,7 @@ Class Game{
   \tRETURN gameComplete
   ..
   list[location] getMoveOptions():
-  \tRETURN self.Players[CurrentPlayerTurn].getMoveOptions
+  \tRETURN self.Players[CurrentPlayerTurn].getMoveOptions()
 }
 
 Class Board{
@@ -165,8 +171,6 @@ Class "Backend Interface"{
 }
 
 ' attribute connections
-'Player::location <-- Player::getLocation
-'Player::location <-- Player::setLocation
 Player::getScore --> PlayerScore::getScore
 Player::setScore --> PlayerScore::setScore
 Player::getMoveOptions --> Board::getMoveOptions
@@ -174,6 +178,7 @@ Game::Players --> Player
 Game::Board --> Board
 Game::Dice --> Dice
 Game::getMoveOptions --> Player::getMoveOptions
+Game::PlayerMove --> Player::setLocation
 
 /'
 
