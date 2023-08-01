@@ -86,6 +86,6 @@ class UpdatePlayerScoreMessage(_message.Message):
     CATEGORY_FIELD_NUMBER: _ClassVar[int]
     ANSWERED_FIELD_NUMBER: _ClassVar[int]
     player: int
-    Category: int
+    Category: str
     answered: bool
-    def __init__(self, player: _Optional[int] = ..., Category: _Optional[int] = ..., answered: bool = ...) -> None: ...
+    def __init__(self, player: _Optional[int] = ..., Category: _Optional[str] = ..., answered: bool = ...) -> None: ...

@@ -88,6 +88,6 @@ message ResponseSuccess {
 
 message UpdatePlayerScoreMessage {
     int32 player = 1 ;
-    int32 Category = 2 ;
+    string Category = 2 ;
     bool answered = 3 ;
 }

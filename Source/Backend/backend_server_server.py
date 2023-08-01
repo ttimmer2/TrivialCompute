@@ -26,13 +26,12 @@ class BackendServer_Server(backend_server_pb2_grpc.BackendServerServicer):
     def EnterQuestion(self, request, context):
         # TODO add logic for question entering here
         print(f"Received enter question request.\nCategory: {request.Category}\nQuestion Text {request.QuestionText}")
-        return backend_server_pb2.SuccessMessage(Success=True, MessageText=f"Successfully entered new question {request.Question}")
+        return backend_server_pb2.SuccessMessage(Success=True, MessageText=f"Successfully entered new question {request.QuestionText}")
 
     def GetQuestion(self, request, context):
         # TODO add db logic for getting question here
         print(f"Received get question request.\nCategory: {request.Category}")
-        return backend_server_pb2.Question(Category=request.Category, QuestionType=2, QuestionText=f"Describe the category `{request.Category}` in four words.")
-
+        return backend_server_pb2.QuestionResponse(Category=str(request.Category), QuestionType=2, QuestionText=f"Describe the category `{request.Category}` in four words.")
 
 
 def serve():
