@@ -1,0 +1,16 @@
+@startuml
+Class Player
+Class Dice
+Class "Board Square"
+Class "GUI Interface"
+Class "Backend Interface"
+Class Question
+Class Board
+note "This is for representation and logic\nNot for display." as N1
+Board .. N1
+"Board Square" .. N1
+Class Game
+Game *-- Player
+Board *-- "Board Square"
+Game *-- Board
+@enduml
