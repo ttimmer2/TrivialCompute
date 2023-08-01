@@ -1,0 +1,84 @@
+@startuml
+' Class definitions and pseudocode
+class Player {
+  --attributes--
+  id : INTEGER
+  ..
+  location : INTEGER
+  ..
+  name : STRING
+  ..
+  color : enum
+  ..
+  score : PlayerScore
+  --methods--
+  void setLocation(INTEGER loc):
+  \tself::location = loc ;
+  \tRETURN None
+  ..
+  INTEGER getLocation():
+  \tRETURNS self::location ;
+  ..
+  List getScore():
+  \tRETURN self::score::getScore()
+  ..
+  void setScore(INTEGER category):
+  \tself::score::setScore(category)
+  \tRETURN
+  ..
+  list : getMoveOptions(INTEGER roll):
+  \t//Find all spots player can move to
+  \t// with roll of `roll`
+  \tRETURN [locations]
+}
+
+class PlayerScore{
+  --attributes--
+  score : List [4]
+  --methods--
+  List getScore():
+  \tRETURN self::score ;
+  ..
+  void setScore(INTEGER index):
+  \tself::score[index] = True ;
+  \tRETURN
+}
+
+class Dice{
+  --attributes--
+  number_of_sides : INTEGER
+  --methods--
+  INTEGER roll():
+  \t// calculate a random integer
+  \t// between 0 and n_sides
+  \troll_value = random(0,self.number_of_sides)
+  \tRETURN roll_value
+}
+
+class BoardSquare{
+  --attributes--
+  square_type : enum
+  ..
+  category : enum
+  --methods--
+
+}
+
+' attribute connections
+'Player::location <-- Player::getLocation
+'Player::location <-- Player::setLocation
+Player::getScore --> PlayerScore::getScore
+Player::setScore --> PlayerScore::setScore
+
+/'
+    When Given <some precondition>
+
+And <additional preconditions> Optional
+
+When <an action/trigger occurs>
+
+Then <some post condition>
+
+And <additional post conditions> Optional
+'/
+@enduml
