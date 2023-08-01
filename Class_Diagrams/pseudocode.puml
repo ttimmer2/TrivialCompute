@@ -86,6 +86,27 @@ Class Board{
 
 }
 
+Class Question{
+  --attribute--
+  Question : STRING
+  ..
+  Answer : STRING
+  --methods--
+  String getQuestion():
+  \tRETURN self.Question ;
+  ..
+  Void setQuestion(String Q):
+  \tself.Question = Q ;
+  \tRETURN
+  ..
+  String getAnswer():
+  \tRETURN self.Answer ;
+  ..
+  Void setAnswer(String A):
+  \tself.Answer = A ;
+  \tRETURN
+}
+
 ' attribute connections
 'Player::location <-- Player::getLocation
 'Player::location <-- Player::setLocation
