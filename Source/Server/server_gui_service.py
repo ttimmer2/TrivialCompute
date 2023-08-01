@@ -26,16 +26,16 @@ class ServerGUIServicer_Server(server_gui_pb2_grpc.ServerGUIServicer):
     def HandleNewSpot(self, request, context):
         # TODO add logic for question entering here
         print(f"Player {request.Player} is in spot {request.Spot}")
-        return server_gui_pb2.NewSpotActionOrMessage(Player=1,RT=0)  # rt = response type
+        return server_gui_pb2.NewSpotActionOrMessage(Player=request.Player,RT=0)  # rt = response type
  
     def GetQuestion(self, request, context):
         # TODO add db logic for getting question here
         print(f"Player {request.Player} is requesting a question") # don't need to specify their location, because logic part should have it.
-        return server_gui_pb2.QuestionGS(CategoryType=1, QuestionGS='What is the most meta aspect of this category?')
+        return server_gui_pb2.QuestionGS(CategoryType="Meta trivia", Question=str("What is the most meta aspect of this category?"))
 
     def QuestionSuccess(self, request, context):
         print(f"Player {request.player} succeeded at answering question: {request.success}")
-        return server_gui_pb2.UpdatePlayerScoreMessage(player=2, Category="Science", answered=True)
+        return server_gui_pb2.UpdatePlayerScoreMessage(player=request.player, Category="Science", answered=request.success)
 
     def CreateCategory(self,request, context):
         print(f"Request to create category {request.CategoryName}")

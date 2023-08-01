@@ -18,7 +18,7 @@ class BackendServerStub(object):
         self.GetQuestion = channel.unary_unary(
                 '/backendserver.BackendServer/GetQuestion',
                 request_serializer=backend__server__pb2.QuestionRequest.SerializeToString,
-                response_deserializer=backend__server__pb2.Question.FromString,
+                response_deserializer=backend__server__pb2.QuestionResponse.FromString,
                 )
         self.CreateCategory = channel.unary_unary(
                 '/backendserver.BackendServer/CreateCategory',
@@ -63,7 +63,7 @@ def add_BackendServerServicer_to_server(servicer, server):
             'GetQuestion': grpc.unary_unary_rpc_method_handler(
                     servicer.GetQuestion,
                     request_deserializer=backend__server__pb2.QuestionRequest.FromString,
-                    response_serializer=backend__server__pb2.Question.SerializeToString,
+                    response_serializer=backend__server__pb2.QuestionResponse.SerializeToString,
             ),
             'CreateCategory': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateCategory,
@@ -99,7 +99,7 @@ class BackendServer(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/backendserver.BackendServer/GetQuestion',
             backend__server__pb2.QuestionRequest.SerializeToString,
-            backend__server__pb2.Question.FromString,
+            backend__server__pb2.QuestionResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

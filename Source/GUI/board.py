@@ -12,6 +12,7 @@ POSITIONS = [
     (0,8), (1,8), (2,8), (3,8), (4,8), (5,8), (6,8), (7,8), (8,8)
 ]
 
+
 ROLL_AGAIN = [0,8,36,44]
 
 HOME = [22]
@@ -178,20 +179,23 @@ def draw_board(window, number_font, tokens, players):
 
 if __name__ == "__main__":
 
-    P0 = Token_image(POSITIONS[4], PINK, 0)
+    P0 = Token_image(POSITIONS[30], PINK, 0)
     Player_0 = Player("Douglas",0)
-    P1 = Token_image(POSITIONS[HOME[0]],BROWN, 1)
+    P1 = Token_image(POSITIONS[3],BROWN, 1)
     Player_1 = Player("Violet",1)
-    P2 = Token_image(POSITIONS[HOME[0]], PURPLE, 2)
+    P2 = Token_image(POSITIONS[1], PURPLE, 2)
     Player_2 = Player("Milhouse",2)    
-    P3 = Token_image(POSITIONS[HOME[0]], ORANGE, 3)
+    P3 = Token_image(POSITIONS[12], ORANGE, 3)
     Player_3 = Player("Bartholomew",3)
 
     for i in range(0,4):
         Player_3.set_category_value(i)
     for i in range(0,2):
         Player_1.set_category_value(i)
-
+    for i in range(0,3):
+        Player_2.set_category_value(i)
+    for i in range(0,1):
+        Player_0.set_category_value(i)
 
     tokens = [P0,P1,P2,P3]
     players = [Player_0,Player_1,Player_2,Player_3]
@@ -203,6 +207,10 @@ if __name__ == "__main__":
     drawing_window.fill(WHITE)
 
     font = pygame.font.SysFont( None, 18, bold =pygame.font.Font.bold)
+    
+    
+    screen = pygame.display.set_mode((1080, 1080))
+    screen.fill(WHITE)
 
     clock = pygame.time.Clock()   # used to govern the max MAX_FPS
     running = True

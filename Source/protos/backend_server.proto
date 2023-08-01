@@ -9,7 +9,7 @@ package backendserver;
 service BackendServer {
 
     // send the question
-    rpc GetQuestion(QuestionRequest) returns (Question) {}
+    rpc GetQuestion(QuestionRequest) returns (QuestionResponse) {}
 
     //rpc GetSocket(SocketMessage) returns (Socket) {}
 
@@ -18,46 +18,35 @@ service BackendServer {
     rpc EnterQuestion(QuestionSubmission) returns (SuccessMessage) {}
   }
 
-  enum QuestionType {
-    // A = text
-    // B = image
-    // C = audio
-    // D = video
 
-    A = 0;
-    B = 1;
-    C = 2;
-    D = 3;
-  }
+message QuestionResponse {
+  // category type
+  string Category = 1 ;
 
-  message Question {
-    // category type
-    string Category = 1 ;
+  // question type
+  int32 QuestionType = 2;
 
-    // question type
-    int32 QuestionType = 2;
+  // question text TODO add video/audio/image
+  string QuestionText = 3;
+}
 
-    // question text TODO add video/audio/image
-    string QuestionText = 3;
-  }
+message QuestionSubmission {
+  // category type
+  string Category = 1 ;
 
-  message QuestionSubmission {
-    // category type
-    string Category = 1 ;
+  // question text TODO add video/audio/image
+  string QuestionText = 2;
+}
 
-    // question text TODO add video/audio/image
-    string QuestionText = 2;
-  }
+message QuestionRequest {
+  string Category = 1 ;
+}
 
-  message QuestionRequest {
-    string Category = 1 ;
-  }
+message SuccessMessage {
+  bool Success = 1;
+  string MessageText = 2 ;
+}
 
-  message SuccessMessage {
-    bool Success = 1;
-    string MessageText = 2 ;
-  }
-
-  message Category {
-    string Category = 1 ;
-  }
+message Category {
+  string Category = 1 ;
+}
