@@ -1,11 +1,216 @@
-Behavior specification example - do for operations
+' Class definitions and pseudocode
+class Player {
+  --attributes--
+  id : INTEGER
+  location : INTEGER
+  name : STRING
+  color : enum
+  score : PlayerScore
+  --methods--
+  void setLocation(INTEGER loc):
+    """
+    When setting location, the player class object
+    location attribute is updated to the new location.
+    """
+    self::location = loc ;
+    RETURN None
 
-Given <some precondition>
+  INTEGER getLocation():
+    """
+    When getting location, the method RETURNS
+    the value of the location attribute.
+    """
+    RETURNS self::location ;
+  
+  List getScore():
+    """
+    When running getScore, the method
+    returns the score attribute of the player.
+    """
+    RETURN self::score::getScore() ;
 
-And <additional preconditions> Optional
+  void setScore(INTEGER category):
+    """
+    When setting the score, the player object updates the score for the given category.
+    """
+    self::score::setScore(category) ;
+    RETURN ;
 
-When <an action/trigger occurs>
+  list : getMoveOptions(INTEGER roll):
+    """
+    When running getMoveOptions, the player calls on the board object and method getMoveOptions.
+    It returns a list of move locations the player can move to.
+    """
+    //Find all spots player can move to
+    // with roll of `roll`
+    locations = Board::getMoveOptions(INTEGER StartSquare, INTEGER roll) ;
+    RETURN [locations] ;
+}
 
-Then <some post condition>
+class PlayerScore{
+  --attributes--
+  score : List [4]
+  --methods--
+  List getScore():
+    """
+    When a PlayerScore object runs getScore,
+    it returns the value of its score attribute (which is a list).
+    """
+    RETURN self::score ;
+  void setScore(INTEGER index):
+    """
+    When the PlayerScore runs setScore, it updates the score
+    for the category represented by the object, by changing it to true.
+    They are initialized as false.
+    """
+    self::score[index] = True ;
+    RETURN
+}
 
-And <additional post conditions> Optional
+class Dice{
+  --attributes--
+  number_of_sides : INTEGER
+  --methods--
+  INTEGER roll():
+    """
+    When a dice object rolls, it returns a random integer between
+    0 and the number of sides the dice has.
+    """
+    // calculate a random integer
+    // between 0 and n_sides
+    roll_value = random(0,self.number_of_sides) ;
+    RETURN roll_value ;
+}
+
+class BoardSquare{
+  --attributes--
+  square_type : enum
+
+  category : enum
+  --methods--
+  square_type getSquareType():
+    """
+    When running getSquareType, the BoardSquare returns the type of square it is (roll again, question square, headquarters, or home base)
+    """
+    RETURN self::square_type
+  
+  category getCategory():
+    """
+    When running getCategory,
+    if the square is a question or headquarter type, it returns its category.
+    Otherwise, it should throw an error.
+    """
+    RETURN self::category ;
+}
+
+map "NodeMap **StartSquare => ConnectedSquare**" as NodeMap {
+1 => 2
+2 => 3
+3 => 4
+}
+
+Class Game{
+  --attributes--
+  Players : List[Player]
+
+  CurrentPlayerTurn : INTEGER
+
+  Board : Board
+
+  Dice : Dice
+  --methods--
+  list PlayerRoll():
+    // Roll the dice
+    roll = self.dice::Roll()
+    // Check valid moves
+    locations = self.getMoveOptions()
+    // return to GUI
+    RETURN locations
+  ..
+  void playerMove(INTEGER loc):
+  self.Players[CurrentPlayerTurn].setLocation(loc)
+  RETURN
+  ..
+  Question getQuestion():
+  \RETURN "Backend Interface"::getQuestion
+  ..
+  Boolean checkWinCondition():
+  // check if on center point
+  // check if all questions answered
+  // check if last question was correct
+  // if all those, return true,
+  // else, return false
+  RETURN gameComplete
+  ..
+  list[location] getMoveOptions():
+  RETURN self.Players[CurrentPlayerTurn].getMoveOptions()
+}
+
+Class Board{
+  --attributes--
+  NodeMap
+  --methods--
+  List getMoveOptions(INTEGER StartSquare, INTEGER roll):
+  //find all nodes you can travel to from start
+  //square based on roll
+  RETURN [locations] ;
+
+}
+
+Class Question{
+  --attribute--
+  Question : STRING
+  ..
+  Answer : STRING
+  --methods--
+  String getQuestion():
+  RETURN self.Question ;
+  ..
+  Void setQuestion(String Q):
+  self.Question = Q ;
+  RETURN
+  ..
+  String getAnswer():
+  RETURN self.Answer ;
+  ..
+  Void setAnswer(String A):
+  self.Answer = A ;
+  RETURN
+}
+
+Class "Window Tracker"{
+  --attributes--
+  currentWindow : enum
+  --methods--
+  Void setWindow(enum W):
+  self.currentWindow = W
+  ..
+  enum getWindow():
+  RETURN self.currentWindow
+}
+
+Class "Backend Interface"{
+    --attributes--
+    db_port : INTEGER
+    --methods--
+    tuple getQuestion(String C):
+    // query db for a question and answer
+    // for category C
+    RETURN (Question, Answer, Category)
+    ..
+    makeQuestion(String Q, String A, String C):
+    // submit question and answer
+    // for category
+    // return success value
+}
+
+' attribute connections
+Player::getScore --> PlayerScore::getScore
+Player::setScore --> PlayerScore::setScore
+Player::getMoveOptions --> Board::getMoveOptions
+Game::Players --> Player
+Game::Board --> Board
+Game::Dice --> Dice
+Game::getMoveOptions --> Player::getMoveOptions
+Game::PlayerMove --> Player::setLocation
+
