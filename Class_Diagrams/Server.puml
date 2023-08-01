@@ -1,16 +1,19 @@
 @startuml
 Class Player
 Class Dice
+Abstract Class Interface
 Class "Board Square"
 Class "GUI Interface"
 Class "Backend Interface"
 Class Question
 Class Board
-note "This is for representation and logic\nNot for display." as N1
-Board .. N1
-"Board Square" .. N1
+Class "Window Tracker"
+note "Game classes are used for representation logic.\nThe display functions are all performed by the GUI." as N1
 Class Game
-Game *-- Player
-Board *-- "Board Square"
-Game *-- Board
+Game o-- Player : Aggregation
+Board *-- "Board Square" : Contains
+Game *-- Board : Contains
+Game *-- Dice : Contains
+Interface <|-- "GUI Interface" : Extension
+Interface <|-- "Backend Interface" : Extension
 @enduml
