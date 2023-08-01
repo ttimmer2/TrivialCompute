@@ -20,16 +20,17 @@ class Player {
   \tRETURNS self::location ;
   ..
   List getScore():
-  \tRETURN self::score::getScore()
+  \tRETURN self::score::getScore() ;
   ..
   void setScore(INTEGER category):
-  \tself::score::setScore(category)
-  \tRETURN
+  \tself::score::setScore(category) ;
+  \tRETURN ;
   ..
   list : getMoveOptions(INTEGER roll):
   \t//Find all spots player can move to
   \t// with roll of `roll`
-  \tRETURN [locations]
+  \tlocations = Board::getMoveOptions(INTEGER StartSquare, INTEGER roll) ;
+  \tRETURN [locations] ;
 }
 
 class PlayerScore{
@@ -51,8 +52,8 @@ class Dice{
   INTEGER roll():
   \t// calculate a random integer
   \t// between 0 and n_sides
-  \troll_value = random(0,self.number_of_sides)
-  \tRETURN roll_value
+  \troll_value = random(0,self.number_of_sides) ;
+  \tRETURN roll_value ;
 }
 
 class BoardSquare{
@@ -61,6 +62,27 @@ class BoardSquare{
   ..
   category : enum
   --methods--
+  square_type getSquareType():
+  \tRETURN self::square_type
+  ..
+  category getCategory():
+  \tRETURN self::category ;
+}
+
+map "NodeMap **StartSquare => ConnectedSquare**" as NodeMap {
+1 => 2
+2 => 3
+3 => 4
+}
+
+Class Board{
+  --attributes--
+  NodeMap
+  --methods--
+  List getMoveOptions(INTEGER StartSquare, INTEGER roll):
+  \t//find all nodes you can travel to from start
+  \t//square based on roll
+  \tRETURN [locations] ;
 
 }
 
@@ -69,6 +91,7 @@ class BoardSquare{
 'Player::location <-- Player::setLocation
 Player::getScore --> PlayerScore::getScore
 Player::setScore --> PlayerScore::setScore
+Player::getMoveOptions --> Board::getMoveOptions
 
 /'
     When Given <some precondition>
