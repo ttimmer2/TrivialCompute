@@ -120,30 +120,45 @@ Class Game{
   Dice : Dice
   --methods--
   list PlayerRoll():
+    """
+    The game should make the dice object roll, and get the value of the roll.
+    Then it should get valid locations the player can move to.
+    Then it should return the locations.
+    """
     // Roll the dice
     roll = self.dice::Roll()
     // Check valid moves
     locations = self.getMoveOptions()
     // return to GUI
     RETURN locations
-  ..
+  
   void playerMove(INTEGER loc):
-  self.Players[CurrentPlayerTurn].setLocation(loc)
-  RETURN
-  ..
+    """
+    Have the player update their location with
+    the Player.setLocation function.
+    """
+    self.Players[CurrentPlayerTurn].setLocation(loc)
+    RETURN
+  
   Question getQuestion():
-  \RETURN "Backend Interface"::getQuestion
-  ..
+    """
+    call the backend interface getQuestion method
+    """
+    RETURN "Backend Interface"::getQuestion
+  
   Boolean checkWinCondition():
-  // check if on center point
-  // check if all questions answered
-  // check if last question was correct
-  // if all those, return true,
-  // else, return false
-  RETURN gameComplete
-  ..
+    // check if on center point
+    // check if all questions answered
+    // check if last question was correct
+    // if all those, return true,
+    // else, return false
+    RETURN gameComplete
+  
   list[location] getMoveOptions():
-  RETURN self.Players[CurrentPlayerTurn].getMoveOptions()
+    """
+    call player getMoveOptions function.
+    """
+    RETURN self.Players[CurrentPlayerTurn].getMoveOptions()
 }
 
 Class Board{
@@ -151,31 +166,35 @@ Class Board{
   NodeMap
   --methods--
   List getMoveOptions(INTEGER StartSquare, INTEGER roll):
-  //find all nodes you can travel to from start
-  //square based on roll
-  RETURN [locations] ;
+    //find all nodes you can travel to from start
+    //square based on roll
+    RETURN [locations] ;
 
 }
 
 Class Question{
   --attribute--
   Question : STRING
-  ..
+  
   Answer : STRING
   --methods--
   String getQuestion():
-  RETURN self.Question ;
-  ..
+    // return the value of the Question attribute
+    RETURN self.Question ;
+  
   Void setQuestion(String Q):
-  self.Question = Q ;
-  RETURN
-  ..
+    // set the Question attribute to Q
+    self.Question = Q ;
+    RETURN
+  
   String getAnswer():
-  RETURN self.Answer ;
-  ..
+    // return the value of the answer attribute
+    RETURN self.Answer ;
+  
   Void setAnswer(String A):
-  self.Answer = A ;
-  RETURN
+    // set the answer attribute
+    self.Answer = A ;
+    RETURN
 }
 
 Class "Window Tracker"{
@@ -183,10 +202,12 @@ Class "Window Tracker"{
   currentWindow : enum
   --methods--
   Void setWindow(enum W):
-  self.currentWindow = W
-  ..
+    // set the value of the current window
+    self.currentWindow = W
+  
   enum getWindow():
-  RETURN self.currentWindow
+    // return the current window attribute
+    RETURN self.currentWindow
 }
 
 Class "Backend Interface"{
@@ -197,7 +218,7 @@ Class "Backend Interface"{
     // query db for a question and answer
     // for category C
     RETURN (Question, Answer, Category)
-    ..
+    
     makeQuestion(String Q, String A, String C):
     // submit question and answer
     // for category
