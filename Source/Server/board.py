@@ -90,7 +90,7 @@ if __name__ == "__main__":
     b = Board()
     q = Board()
     print(b==q)
-    roll = 8
+    roll = 6
     p = b.get_valid_spots(43,roll)
     for pos in p:
         print(Board.POSITIONS[pos])
