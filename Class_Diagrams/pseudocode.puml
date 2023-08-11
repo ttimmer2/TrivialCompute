@@ -69,12 +69,6 @@ class BoardSquare{
   \tRETURN self::category ;
 }
 
-map "NodeMap **StartSquare => ConnectedSquare**" as NodeMap {
-1 => 2
-2 => 3
-3 => 4
-}
-
 Class Game{
   --attributes--
   Players : List[Player]
@@ -114,9 +108,11 @@ Class Game{
 
 Class Board{
   --attributes--
-  NodeMap
+  POSITIONS : List of tuples (x,y location coordinates)
+  ..
+  CONNECTIONS : Dictionary with lists denoting connected nodes
   --methods--
-  List getMoveOptions(INTEGER StartSquare, INTEGER roll):
+  List get_valid_spots(INTEGER StartSquare, INTEGER roll, list visited_spots, list locations):
   \t//find all nodes you can travel to from start
   \t//square based on roll
   \tRETURN [locations] ;
