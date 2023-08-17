@@ -1,5 +1,6 @@
 import pygame
 
+# Represents where each board piece is located.
 POSITIONS = [
     (0,0), (1,0), (2,0), (3,0), (4,0), (5,0), (6,0), (7,0), (8,0),
     (0,1),                      (4,1),                      (8,1),
@@ -12,18 +13,23 @@ POSITIONS = [
     (0,8), (1,8), (2,8), (3,8), (4,8), (5,8), (6,8), (7,8), (8,8)
 ]
 
-
+# represents the indices of the Roll Again squares on POSITIONS
 ROLL_AGAIN = [0,8,36,44]
 
+# represents the index of the HOME square on POSITIONS
 HOME = [22]
 
+# represents the indices of the HeadQuarter squares in POSITIONS
 HQ = [4,18,26,40]
 
+# represents the indices of the different category spaces
 C0 = [4,9,11,21,25,27,29,31,38,42]
 C1 = [18,1,5,10,14,24,28,32,37,41]
 C2 = [40,2,6,13,15,17,19,23,33,35]
 C3 = [26,3,7,12,16,20,30,34,39,43]
 
+
+# represents the size of each square
 SQUARE_DIM   = 70
 
 # square colors
@@ -46,20 +52,33 @@ BLACK = (0,0,0)
 PINK = (255,105,180)
 BROWN = (210,105,30)
 
+
+# Class for the token
 class Token_image():
     def __init__(self, position, color, number):
+        """
+        Set the player position (index of POSITIONS), color, and number (out of 4)
+        """
         self.position = position
         self.color = color
         self.number = number
 
     def set_pos(self, pos):
+        """
+        Validate that position is valid index in POSITIONS
+        If it is, update self.position
+        """
         if pos <= len(POSITIONS) and pos >= 0:
             self.position = pos
 
     def draw_token(self, window):
+        # Calculate X & Y position to draw on the board
         x = self.position[0]*SQUARE_DIM + X_MARGIN
         y = self.position[1]*SQUARE_DIM + Y_MARGIN
 
+        # Calculate the offset for the player number
+        # so that each player is in a different corner of the 
+        # boardsquare
         offset = SQUARE_DIM / 4 
         match self.number:
             case 0:
@@ -74,7 +93,7 @@ class Token_image():
             case 3:
                 x += offset * 3
                 y += offset * 3
-
+        # Draw the player token
         pygame.draw.circle(window, self.color, (int(x),int(y)), int(SQUARE_DIM/4))
 
 
@@ -88,11 +107,14 @@ class Player():
         self.set_location()
 
     def set_category_value(self, category):
+        # update a category if the player gets one correct
+        # so that it shows they completed answering it
         if category > 3 or category < 0:
             raise Exception("Category must be an int between 0 & 3")
         self.categories[category] = True
 
     def set_location(self):
+        # set the location of each Player piece (so that they are each in a different corner)
         location = None
         match self.number:
             case 0:
@@ -133,6 +155,8 @@ class Player():
 
 
 def get_rectangle_color(pos):
+    # Helper function to get the correct color
+    # for each category
     if pos in C0:
         return RED
     elif pos in C1:
@@ -145,6 +169,8 @@ def get_rectangle_color(pos):
         return WHITE
 
 def get_square_string(pos):
+    # Helper function to get writing
+    # for center piece and roll again
     if pos in HOME:
         return "TC"
     else:
@@ -153,14 +179,18 @@ def get_square_string(pos):
 
 
 def draw_tokens(tokens, window):
+    # helper function to draw each token
     for token in tokens:
         token.draw_token(window)
 
 def draw_players(players, window, font):
+    # Helper function to draw each player
     for player in players:
         player.draw_player_representation(window, font)
 
 def draw_board(window, number_font, tokens, players):
+    # Helper function to draw entire playing board including 
+    # players, tokens, score
     for i, pos in enumerate(POSITIONS):
         tl_x = pos[0]*SQUARE_DIM + X_MARGIN
         tl_y = pos[1]*SQUARE_DIM + Y_MARGIN
@@ -178,6 +208,8 @@ def draw_board(window, number_font, tokens, players):
 
 
 if __name__ == "__main__":
+    # Demonstrate drawing the board
+    # will be helpful for full game GUI
 
     P0 = Token_image(POSITIONS[30], PINK, 0)
     Player_0 = Player("Douglas",0)

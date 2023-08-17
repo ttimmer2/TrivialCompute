@@ -1,0 +1,195 @@
+@startuml
+' Class definitions and pseudocode
+class Player {
+  --attributes--
+  id : INTEGER
+  ..
+  location : INTEGER
+  ..
+  name : STRING
+  ..
+  color : enum
+  ..
+  score : PlayerScore
+  --methods--
+  void setLocation(INTEGER loc):
+  \tself::location = loc ;
+  \tRETURN None
+  ..
+  INTEGER getLocation():
+  \tRETURNS self::location ;
+  ..
+  List getScore():
+  \tRETURN self::score::getScore() ;
+  ..
+  void setScore(INTEGER category):
+  \tself::score::setScore(category) ;
+  \tRETURN ;
+  ..
+  list : getMoveOptions(INTEGER roll):
+  \t//Find all spots player can move to
+  \t// with roll of `roll`
+  \tlocations = Board::getMoveOptions(INTEGER StartSquare, INTEGER roll) ;
+  \tRETURN [locations] ;
+}
+
+class PlayerScore{
+  --attributes--
+  score : List [4]
+  --methods--
+  List getScore():
+  \tRETURN self::score ;
+  ..
+  void setScore(INTEGER index):
+  \tself::score[index] = True ;
+  \tRETURN
+}
+
+class Dice{
+  --attributes--
+  number_of_sides : INTEGER
+  --methods--
+  INTEGER roll():
+  \t// calculate a random integer
+  \t// between 0 and n_sides
+  \troll_value = random(0,self.number_of_sides) ;
+  \tRETURN roll_value ;
+}
+
+class BoardSquare{
+  --attributes--
+  square_type : enum
+  ..
+  category : enum
+  --methods--
+  square_type getSquareType():
+  \tRETURN self::square_type
+  ..
+  category getCategory():
+  \tRETURN self::category ;
+}
+
+Class Game{
+  --attributes--
+  Players : List[Player]
+  ..
+  CurrentPlayerTurn : INTEGER
+  ..
+  Board : Board
+  ..
+  Dice : Dice
+  --methods--
+  list PlayerRoll():
+    \t// Roll the dice
+    \troll = self.dice::Roll()
+    \t// Check valid moves
+    \tlocations = self.getMoveOptions()
+    \t// return to GUI
+    \tRETURN locations
+  ..
+  void playerMove(INTEGER loc):
+  \tself.Players[CurrentPlayerTurn].setLocation(loc)
+  \tRETURN
+  ..
+  Question getQuestion():
+  \\tRETURN "Backend Interface"::getQuestion
+  ..
+  Boolean checkWinCondition():
+  // check if on center point
+  // check if all questions answered
+  // check if last question was correct
+  // if all those, return true,
+  // else, return false
+  \tRETURN gameComplete
+  ..
+  list[location] getMoveOptions():
+  \tRETURN self.Players[CurrentPlayerTurn].getMoveOptions()
+}
+
+Class Board{
+  --attributes--
+  POSITIONS : List of tuples (x,y location coordinates)
+  ..
+  CONNECTIONS : Dictionary with lists denoting connected nodes
+  --methods--
+  List get_valid_spots(INTEGER StartSquare, INTEGER roll, list visited_spots, list locations):
+  \t//find all nodes you can travel to from start
+  \t//square based on roll
+  \tRETURN [locations] ;
+
+}
+
+Class Question{
+  --attribute--
+  Question : STRING
+  ..
+  Answer : STRING
+  --methods--
+  String getQuestion():
+  \tRETURN self.Question ;
+  ..
+  Void setQuestion(String Q):
+  \tself.Question = Q ;
+  \tRETURN
+  ..
+  String getAnswer():
+  \tRETURN self.Answer ;
+  ..
+  Void setAnswer(String A):
+  \tself.Answer = A ;
+  \tRETURN
+}
+
+Class "Window Tracker"{
+  --attributes--
+  currentWindow : enum
+  --methods--
+  Void setWindow(enum W):
+  \tself.currentWindow = W
+  ..
+  enum getWindow():
+  \tRETURN self.currentWindow
+}
+
+Class "Backend Interface"{
+    --attributes--
+    db_port : INTEGER
+    --methods--
+    tuple getQuestion(String C):
+    \t// query db for a question and answer
+    \t// for category C
+    \tRETURN (Question, Answer, Category)
+    ..
+    makeQuestion(String Q, String A, String C):
+    \t// submit question and answer
+    \t// for category
+    \t// return success value
+}
+
+' attribute connections
+Player::getScore --> PlayerScore::getScore
+Player::setScore --> PlayerScore::setScore
+Player::getMoveOptions --> Board::getMoveOptions
+Game::Players --> Player
+Game::Board --> Board
+Game::Dice --> Dice
+Game::getMoveOptions --> Player::getMoveOptions
+Game::PlayerMove --> Player::setLocation
+
+/'
+
+Class "GUI Interface"{
+
+}
+
+    When Given <some precondition>
+
+And <additional preconditions> Optional
+
+When <an action/trigger occurs>
+
+Then <some post condition>
+
+And <additional post conditions> Optional
+'/
+@enduml
