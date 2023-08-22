@@ -40,7 +40,7 @@ class backend_interface(object):
         self.connection.commit()
 
 
-    def get_question(self, min_index=0):
+    def get_question(self, category, min_index=0):
         """
         Get the categories from the Categories table and return as a 
         list of the strings.
@@ -60,3 +60,17 @@ class backend_interface(object):
         """
         res = self.cursor.execute("INSERT INTO Questions (\"Category\", \"Question\", \"Answer\") VALUES (?, ?, ?)",(category,question,answer,))
         self.connection.commit()    
+
+
+if __name__ == "__main__":
+    bi = backend_interface()
+    print("GETTING CATEGORIES")
+    print(bi.get_categories())
+    bi.add_category("Test Category")
+
+    print("GETTING QUESTION:")
+    print(bi.get_question("History"))
+
+    print("INSERTING QUESTION:")
+    bi.add_question("Test Category","; DROP TABLE Categories","--; SELECT * FROM Schema")
+
