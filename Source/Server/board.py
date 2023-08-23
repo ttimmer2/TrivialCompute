@@ -63,6 +63,21 @@ class Board(object):
                     44: [35, 43]
                     }
 
+    # represents the indices of the Roll Again squares on POSITIONS
+    ROLL_AGAIN = [0,8,36,44]
+
+    # represents the index of the HOME square on POSITIONS
+    HOME = [22]
+
+    # represents the indices of the HeadQuarter squares in POSITIONS
+    HQ = [4,18,26,40]
+
+    # represents the indices of the different category spaces
+    C0 = [4,9,11,21,25,27,29,31,38,42]
+    C1 = [18,1,5,10,14,24,28,32,37,41]
+    C2 = [40,2,6,13,15,17,19,23,33,35]
+    C3 = [26,3,7,12,16,20,30,34,39,43]`
+
     def __new__(cls):
         """
         Create the backend interface object if no instance exists.
@@ -72,6 +87,28 @@ class Board(object):
             cls._self = super().__new__(cls)
         return cls._self
 
+    def get_spot_category(self, position_index):
+        if position_index in Board.C0:
+            return 0
+        elif position_index in Board.C1:
+            return 1
+        elif position_index in Board.C2:
+            return 2
+        elif position_index in Board.C3:
+            return 3
+        else:
+            return -1
+
+    def get_spot_type(self, position_index):
+        if position_index in Board.HOME:
+            return (0,0)
+        elif position_index in Board.HQ:
+            cat = self.get_spot_category(position_index)
+            return (1,cat)
+        elif position_index in Board.ROLL_AGAIN:
+            return (2,0)
+        else:
+            return (3,self.get_spot_category(position_index))
 
 
     def get_valid_spots(self, start, roll, visited=[], final=[]):
